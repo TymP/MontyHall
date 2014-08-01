@@ -1,11 +1,7 @@
 #Script: Monty hall general case
 from random import randint
 
-#General case: initialise list for number of doors
 numberOfDoors = 4
-possibleDoors = [[False]*numberOfDoors]*numberOfDoors
-for i in range(numberOfDoors):
-    possibleDoors[i][i] = True
 
 #initialise score keepers
 tries = 0
@@ -17,10 +13,10 @@ while tries<10:
 
     #CAREFUL THESE NEED TO BE REINITIALISED ON EACH ITERATION
     #when you del remainingDoors[index], that  points ot the original array
-    doors1 = [True, False, False]
-    doors2 = [False,True,False]
-    doors3 = [False, False, True]
-    possibleDoors = [doors1, doors2, doors3]
+    
+    possibleDoors = [[False]*numberOfDoors]*numberOfDoors
+    for i in range(numberOfDoors):
+        possibleDoors[i][i] = True
 
     #Alternate changing mind and not changing mind
     if tries%2 ==0:
@@ -30,17 +26,18 @@ while tries<10:
         change = False
         
     #Set the stage
-    remainingDoors = possibleDoors[randint(0,2)]
-    choiceIndex = randint(0,2)
+    remainingDoors = possibleDoors[randint(0,numberOfDoors-1)]
+    choiceIndex = randint(0,numberOfDoors-1)
     choice = remainingDoors.pop(choiceIndex)
 
     #If player changes mind:
     if change:
+        #Reveal a goat:
         for i in range(len(remainingDoors)):
-            if remainingDoors[i]==False:
-                del remainingDoors[i]#THEBUG
+            if remainingDoors[i]==False: #it's a goat
+                del remainingDoors[i]#Remove it: it's no longer a choice
                 break
-        choice = remainingDoors[0]
+        choice = remainingDoors[randint(0,numberOfDoors-1)]
         
     tries +=1
 

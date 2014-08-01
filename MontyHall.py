@@ -1,8 +1,6 @@
 #Script: Monty hall problem
 from random import randint
 
-#Set change boolean
-Change = True
 #The possible combinations of three doors. False = donkey, True = car.
 
 #initialise score keepers
@@ -11,7 +9,7 @@ changeAndWin = 0
 win=0
 
 #Start game loop.
-while tries<1000:
+while tries<10:
 
     #CAREFUL THESE NEED TO BE REINITIALISED ON EACH ITERATION
     #when you del remainingDoors[index], that  points ot the original array
@@ -19,27 +17,20 @@ while tries<1000:
     doors2 = [False,True,False]
     doors3 = [False, False, True]
     possibleDoors = [doors1, doors2, doors3]
-    print('possible doors:')
-    print(possibleDoors)
 
     #Alternate changing mind and not changing mind
     if tries%2 ==0:
         change = True
+        print("Player changed mind")
     else:
         change = False
         
     #Set the stage
     remainingDoors = possibleDoors[randint(0,2)]
-    print('initial doors: ')
-    print(remainingDoors)
     choiceIndex = randint(0,2)
-    print('choice index: ', choiceIndex)
     choice = remainingDoors.pop(choiceIndex)
-    print('choice: ',choice)
-    print("removing choice")
-    print('doors: ', remainingDoors)
-    print("change: ", change)
-    
+
+    #If player changes mind:
     if change:
         for i in range(len(remainingDoors)):
             if remainingDoors[i]==False:
@@ -61,6 +52,7 @@ while tries<1000:
     print(" ")
     print(' ')
 
+#Analysis
 print('change and win:', changeAndWin)
 print('changeswins/wins:',changeAndWin/win)
 if changeAndWin>win/2:
