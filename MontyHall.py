@@ -9,16 +9,16 @@ changeAndWin = 0
 win=0
 
 #Start game loop.
-while tries<10:
+while tries<1000:
 
-    #CAREFUL THESE NEED TO BE REINITIALISED ON EACH ITERATION
-    #when you del remainingDoors[index], that  points ot the original array
+    #initialise the possible doors and choose one array.
+    
     doors1 = [True, False, False]
     doors2 = [False,True,False]
     doors3 = [False, False, True]
     possibleDoors = [doors1, doors2, doors3]
 
-    #Alternate changing mind and not changing mind
+    #Alternate player changing mind and not changing mind
     if tries%2 ==0:
         change = True
         print("Player changed mind")
@@ -34,7 +34,7 @@ while tries<10:
     if change:
         for i in range(len(remainingDoors)):
             if remainingDoors[i]==False:
-                del remainingDoors[i]#THEBUG
+                del remainingDoors[i]
                 break
         choice = remainingDoors[0]
         
